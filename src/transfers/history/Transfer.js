@@ -6,4 +6,4 @@ class Transfer extends Component {
   }
  }
 
- export default Transfer;
+export default Transfer;
