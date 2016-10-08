@@ -5,7 +5,6 @@
         "promise"
     ],
     "rules": {
-      "no-unused-vars": "off",
       "semi": "off",
       "space-before-function-paren": "off"
     }
