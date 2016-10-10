@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setFieldValue, setFormMessage, setFieldValidationMessage } from '../action/actionCreator';
 
-class TextField extends Component {
+export class TextField extends Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);

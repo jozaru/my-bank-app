@@ -1,49 +1,44 @@
-import * as actions from '../action/actionCreator';
-import { HOME, HOME_TITLE } from '../view/viewConstants';
+import * as actionTypes from '../action/actionTypes';
 
 function getInitialState() {
-  return {
-    view: HOME,
-    title: HOME_TITLE,
-    tranfers: []
-  }
+  return {};
 }
 
 function appReducer(state = getInitialState(), action) {
   const newState = Object.assign({}, state);
   switch (action.type) {
-    case actions.VIEW_SELECTED:
+    case actionTypes.VIEW_SELECTED:
       newState.view = action.view;
       newState.title = action.title;
       break;
-    case actions.FIELD_VALUE:
+    case actionTypes.FIELD_VALUE:
       newState[action.formName] = action[action.formName];
       break;
-    case actions.SET_FORM_MESSAGE:
+    case actionTypes.SET_FORM_MESSAGE:
       newState.formMessage = action.formMessage;
       break;
-    case actions.INIT_FORM:
+    case actionTypes.INIT_FORM:
       newState[action.formName] = action[action.formName];
       newState.formMessage = action.formMessage;
       break;
-    case actions.FINDING_TRANSFERS:
+    case actionTypes.FETCHING_TRANSFERS:
       newState.loading = true;
       break;
-    case actions.TRANSFERS_FINDED:
+    case actionTypes.TRANSFERS_FINDED:
       newState.transfers = action.transfers;
       newState.loading = false;
       break;
-    case actions.INIT_TRANSFERS:
-      newState.transfers = actions.transfers;
-      newState.loading = actions.loading;
-      newState.error = actions.error;
-      break;
-    case actions.NO_TRANSFERS:
-      newState.loading = false;
+    case actionTypes.INIT_TRANSFERS:
       newState.transfers = null;
+      newState.loading = false;
+      newState.error = false;
+      break;
+    case actionTypes.NO_TRANSFERS:
+      newState.transfers = null;
+      newState.loading = false;
       newState.error = true;
       break;
-    case actions.FIELD_VALIDATION_MESSAGE:
+    case actionTypes.FIELD_VALIDATION_MESSAGE:
       newState[action.fieldName] = action[action.fieldName];
       break;
     default:
