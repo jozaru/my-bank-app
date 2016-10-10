@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as views from './viewConstants';
+import * as viewConstants from './viewConstants';
 import TransferCreate from './TransferCreate';
 import TransfersHistory from './TransfersHistory';
+import { selectView } from '../action/actionCreator';
 
 class ViewController extends Component {
+  componentDidMount() {
+    this.props.selectView(viewConstants.HOME, viewConstants.HOME_TITLE);
+  }
+
   render() {
     switch (this.props.view) {
-      case views.HOME:
+      case viewConstants.HOME:
         return (<p>Por favor selecciona una opcion del menú</p>);
-      case views.CREATE_TRANSFER:
+      case viewConstants.CREATE_TRANSFER:
         return (<TransferCreate />);
-      case views.TRANSFERS_HISTORY:
+      case viewConstants.TRANSFERS_HISTORY:
         return (<TransfersHistory />);
       default:
         return (<br/>);
@@ -22,6 +27,12 @@ class ViewController extends Component {
 const ConnectedViewController = connect((state) => {
   return {
     view: state.view
+  }
+}, (dispatch) => {
+  return {
+    selectView: (view, title) => {
+      dispatch(selectView(view, title));
+    }
   }
 })(ViewController);
 

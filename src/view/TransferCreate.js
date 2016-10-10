@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TextField from '../common/TextField';
+import TextField from '../components/TextField';
 import { HOME, HOME_TITLE } from '../view/viewConstants';
 import { connect } from 'react-redux';
 import { selectView, setFormMessage, initForm } from '../action/actionCreator';

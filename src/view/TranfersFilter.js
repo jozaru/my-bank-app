@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import TextField from '../common/TextField';
+import TextField from '../components/TextField';
 import filterFields from './filterFields';
 import { connect } from 'react-redux';
-import { setFormMessage, findingTransfers, transfersFinded, initForm, noTransfers } from '../action/actionCreator';
+import { setFormMessage, fetchingTransfers, transfersFinded, initForm, noTransfers } from '../action/actionCreator';
 import TransferClient from '../client/TransferClient';
 
 class TransferFilter extends Component {
@@ -62,7 +62,7 @@ const ConnectedTransferFilter = connect((state) => {
       dispatch(setFormMessage(message));
     },
     fetchTransfers: (filters) => {
-      dispatch(findingTransfers());
+      dispatch(fetchingTransfers());
 
       setTimeout(() => {
         let transfers = TransferClient.getTransfers(filters);

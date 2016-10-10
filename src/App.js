@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Menu from './common/Menu';
-import Header from './common/Header';
-import ViewController from './view/ViewController';
+import Menu from './components/Menu';
+import Header from './components/Header';
+import ViewContainer from './view/ViewContainer';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <Menu />
         <Header logo={logo} />
-        <ViewController />
+        <ViewContainer />
       </div>
     );
   }

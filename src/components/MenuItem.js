@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectView } from '../action/actionCreator';
 
-class MenuItem extends Component {
+export class MenuItem extends Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
