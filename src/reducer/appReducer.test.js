@@ -4,7 +4,7 @@ import * as actionTypes from '../action/actionTypes';
 describe('App reducer', () => {
   it('Should return an object with the new view and title when receiving a selected view action', () => {
     const receivedAction = {
-      type: actionTypes.VIEW_SELECTED,
+      type: actionTypes.SELECT_VIEW,
       view: 'SOME_VIEW',
       title: 'SOME_TITLE'
     };
@@ -15,52 +15,69 @@ describe('App reducer', () => {
     expect(appReducer(undefined, receivedAction)).toEqual(expectedState);
   });
 
-  it('Should return an object with the new form fields and formName when receiving a field value action', () => {
+  it('Should return an object with the new object with formData, formMessage and formValid for somrFormName when receiving a init form action', () => {
     const formName = 'someFormName';
-    const fields = [];
     const receivedAction = {
-      type: actionTypes.FIELD_VALUE,
-      [formName]: fields,
+      type: actionTypes.INIT_FORM,
       formName
     };
     const expectedState = {
-      [formName]: receivedAction[receivedAction.formName]
+      [formName]: {
+        formData: {},
+        formMessage: '',
+        formValid: false
+      }
     };
     expect(appReducer({}, receivedAction)).toEqual(expectedState);
+  });
+
+  it('Should return an object with the new form fields and formName when receiving a set form data action', () => {
+    const formName = 'someFormName';
+    const formData = {};
+    const receivedAction = {
+      type: actionTypes.SET_FORM_DATA,
+      formName,
+      formData
+    };
+    const expectedState = {
+      [formName]: {
+        formData: receivedAction.formData
+      }
+    };
+    expect(appReducer({[formName]: {}}, receivedAction)).toEqual(expectedState);
   });
 
   it('Should return an object with the formMessage when receiving a set form message action', () => {
+    const formName = 'someFormName';
     const formMessage = 'Some form masagge';
     const receivedAction = {
       type: actionTypes.SET_FORM_MESSAGE,
-      formMessage
-    };
-    const expectedState = {
-      formMessage: receivedAction.formMessage
-    };
-    expect(appReducer({}, receivedAction)).toEqual(expectedState);
-  });
-
-  it('Should return an object with the new form fields and formMessage when receiving a init form action', () => {
-    const formName = 'someFormName';
-    const formMessage = 'Some form masagge';
-    const fields = [];
-    const receivedAction = {
-      type: actionTypes.INIT_FORM,
-      [formName]: fields,
       formName,
       formMessage
     };
     const expectedState = {
-      [formName]: receivedAction[receivedAction.formName],
-      formMessage: receivedAction.formMessage
+      [formName]: {
+        formMessage: receivedAction.formMessage
+      }
+    };
+    expect(appReducer({[formName]: {}}, receivedAction)).toEqual(expectedState);
+  });
+
+  it('Should return an object with the new transfers, loading value and error value when receiving a init transfers action', () => {
+    const receivedAction = {
+      type: actionTypes.INIT_TRANSFERS
+    };
+    const expectedState = {
+      transfers: null,
+      loading: false,
+      error: false
     };
     expect(appReducer({}, receivedAction)).toEqual(expectedState);
   });
 
   it('Should return an object with the new loading value when receiving a fetching transfers action', () => {
     const receivedAction = {
-      type: actionTypes.FETCHING_TRANSFERS
+      type: actionTypes.FETCH_TRANSFERS
     };
     const expectedState = {
       loading: true
@@ -81,17 +98,7 @@ describe('App reducer', () => {
     expect(appReducer({}, receivedAction)).toEqual(expectedState);
   });
 
-  it('Should return an object with the new transfers, loading value and error value when receiving a init transfers action', () => {
-    const receivedAction = {
-      type: actionTypes.INIT_TRANSFERS
-    };
-    const expectedState = {
-      transfers: null,
-      loading: false,
-      error: false
-    };
-    expect(appReducer({}, receivedAction)).toEqual(expectedState);
-  });
+
 
   it('Should return an object with the new transfers, loading value and error value when receiving a no transfers action', () => {
     const receivedAction = {
@@ -109,7 +116,7 @@ describe('App reducer', () => {
     const fieldName = 'someFieldName';
     const message = 'Some validation message';
     const receivedAction = {
-      type: actionTypes.FIELD_VALIDATION_MESSAGE,
+      type: actionTypes.SET_FIELD_VALIDATION_MESSAGE,
       [fieldName]: message,
       fieldName
     };

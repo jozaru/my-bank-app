@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setFieldValue, setFormMessage, setFieldValidationMessage } from '../action/actionCreator';
+import { setFormData, setFormMessage, setFieldValidationMessage } from '../action/actionCreator';
 
 export class TextField extends Component {
   constructor() {
@@ -20,7 +20,7 @@ export class TextField extends Component {
     if (this.props.required && (!val || val.lenght === 0)) {
       empty = true;
     }
-    this.props.setFormMessage('');
+    this.props.setFormMessage(this.props.formName, '');
     this.props.setFieldValidationMessage(this.props.name, '');
     if (empty) {
       this.props.setFieldValidationMessage(this.props.name, 'Campo obligatorio');
@@ -32,8 +32,8 @@ export class TextField extends Component {
         val = '';
       }
     }
-    const fields = Object.assign({}, this.props.fields, { [name]: val });
-    this.props.setFieldValue(this.props.formName, fields);
+    const formData = Object.assign({}, this.props[this.props.formName].formData, { [name]: val });
+    this.props.setFormData(this.props.formName, formData);
   }
 
   render() {
@@ -61,13 +61,13 @@ export class TextField extends Component {
 
 const ConnectedTextField = connect((state, props) => {
   return {
-    fields: state[props.formName],
+    [props.formName]: state[props.formName],
     validationMessage: state[props.name]
   }
 }, (dispatch) => {
   return {
-    setFieldValue: (formName, fields) => {
-      dispatch(setFieldValue(formName, fields));
+    setFormData: (formName, formData) => {
+      dispatch(setFormData(formName, formData));
     },
     setFormMessage: (message) => {
       dispatch(setFormMessage(message));

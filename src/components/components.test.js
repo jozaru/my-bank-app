@@ -4,6 +4,7 @@ import Menu from './Menu';
 import { Header } from './Header';
 import { MenuItem } from './MenuItem';
 import { TextField } from './TextField';
+import { Form } from './Form';
 
 describe('components', () => {
   describe('Header', () => {
@@ -21,6 +22,12 @@ describe('components', () => {
   describe('MenuItem', () => {
     it('Should render without crashing', () => {
       shallow(<MenuItem />);
+    });
+  });
+
+  describe('Form', () => {
+    it('Should render without crashing', () => {
+      shallow(<Form />);
     });
   });
 
