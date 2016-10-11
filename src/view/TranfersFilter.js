@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
+import Form from '../components/Form';
 import TextField from '../components/TextField';
 import filterFields from './filterFields';
 import { connect } from 'react-redux';
-import { setFormMessage, fetchingTransfers, transfersFinded, initForm, noTransfers } from '../action/actionCreator';
+import { setFormMessage, fetchTransfers, transfersFinded, noTransfers } from '../action/actionCreator';
 import TransferClient from '../client/TransferClient';
+
+const formName = 'formFilter';
 
 class TransferFilter extends Component {
   constructor() {
     super();
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
 
-  componentDidMount() {
-    this.props.initForm('formFilter', {}, '');
+  submitForm() {
+    const formData = this.props.formState.formData;
+    this.props.fetchTransfers(formData);
   }
 
-  handleSubmit(ev) {
-    ev.preventDefault();
-    const filters = this.props.formFilter;
-    const validForm = Object.keys(filters).map((key) => filters[key]).filter((value) => value.length !== 0).length >= 1;
-    if (validForm) {
-      this.props.fetchTransfers(filters);
-    } else {
-      this.props.setFormMessage('Debes ingresar al menos una fecha');
+  validateForm() {
+    const formData = this.props.formState.formData;
+    const formValid = Object.keys(formData).map((key) => formData[key]).filter((value) => value.length !== 0).length >= 1;
+    if (!formValid) {
+      this.props.setFormMessage(formName, 'Debes ingresar al menos una fecha');
     }
+    return formValid;
   }
 
   render() {
@@ -41,11 +44,13 @@ class TransferFilter extends Component {
     });
     return (
       <div>
-        <form method='POST' onSubmit={this.handleSubmit} noValidate name='formFilter'>
-          <span>{this.props.formMessage}</span>
-          {fields}
-          <button>Buscar</button>
-        </form>
+        <Form
+          formName={formName}
+          fields={fields}
+          validateForm={this.validateForm}
+          submitForm={this.submitForm}
+          resetAfterSubmit={false}
+        />
       </div>
     );
   }
@@ -53,28 +58,24 @@ class TransferFilter extends Component {
 
 const ConnectedTransferFilter = connect((state) => {
   return {
-    formFilter: state.formFilter,
-    formMessage: state.formMessage
+    formState: state[formName]
   }
 }, (dispatch) => {
   return {
-    setFormMessage: (message) => {
-      dispatch(setFormMessage(message));
+    setFormMessage: (formName, formMessage) => {
+      dispatch(setFormMessage(formName, formMessage));
     },
-    fetchTransfers: (filters) => {
-      dispatch(fetchingTransfers());
+    fetchTransfers: (formData) => {
+      dispatch(fetchTransfers());
 
       setTimeout(() => {
-        let transfers = TransferClient.getTransfers(filters);
+        let transfers = TransferClient.getTransfers(formData);
         if (transfers && transfers.length > 0) {
           dispatch(transfersFinded(transfers));
         } else {
           dispatch(noTransfers());
         }
       }, 5000);
-    },
-    initForm: (formName, fields, message) => {
-      dispatch(initForm(formName, fields, message));
     }
   }
 })(TransferFilter);
