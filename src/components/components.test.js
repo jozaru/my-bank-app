@@ -1,5 +1,5 @@
-import React from 'react'
-import { shallow } from 'enzyme'
+import React from 'react';
+import { shallow } from 'enzyme';
 import Menu from './Menu';
 import { Header } from './Header';
 import { MenuItem } from './MenuItem';
@@ -22,6 +22,13 @@ describe('components', () => {
   describe('MenuItem', () => {
     it('Should render without crashing', () => {
       shallow(<MenuItem />);
+    });
+
+    it('should call selectView when clicked', () => {
+      let selectView = jest.fn();
+      const wrapper = shallow(<MenuItem selectView={selectView}/>);
+      wrapper.find('li').simulate('click');
+      expect(selectView).toHaveBeenCalled();
     });
   });
 

@@ -1,4 +1,4 @@
-var filterFields = [
+const filterFields = [
   {
     id: 1,
     type: 'date',

@@ -9,7 +9,7 @@ import TransferClient from '../client/TransferClient';
 
 const formName = 'formTransfer';
 
-class TransferCreate extends Component {
+export class TransferCreate extends Component {
   constructor() {
     super();
     this.validateForm = this.validateForm.bind(this);
@@ -53,7 +53,7 @@ class TransferCreate extends Component {
           formName={field.formName}
           validationFunction={field.validationFunction}
         />
-      )
+      );
     });
     return (
       <div>

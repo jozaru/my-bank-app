@@ -3,7 +3,7 @@ import Transfer from './Transfer';
 import { connect } from 'react-redux';
 import { initTransfers } from '../action/actionCreator';
 
-class TransfersList extends Component {
+export class TransfersList extends Component {
   componentDidMount() {
     this.props.initTransfers();
   }

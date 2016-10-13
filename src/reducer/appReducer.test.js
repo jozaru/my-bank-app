@@ -1,7 +1,7 @@
 import appReducer from './appReducer';
 import * as actionTypes from '../action/actionTypes';
 
-describe('App reducer', () => {
+describe('appReducer', () => {
   it('Should return an object with the new view and title when receiving a selected view action', () => {
     const receivedAction = {
       type: actionTypes.SELECT_VIEW,
@@ -97,8 +97,6 @@ describe('App reducer', () => {
     };
     expect(appReducer({}, receivedAction)).toEqual(expectedState);
   });
-
-
 
   it('Should return an object with the new transfers, loading value and error value when receiving a no transfers action', () => {
     const receivedAction = {

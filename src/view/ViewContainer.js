@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as viewConstants from './viewConstants';
 import TransferCreate from './TransferCreate';
-import TransfersHistory from './TransfersHistory';
+import TranfersFilter from './TransfersFilter';
+import TransfersList from './TransfersList';
 import { selectView } from '../action/actionCreator';
 
-class ViewController extends Component {
+export class ViewContainer extends Component {
   componentDidMount() {
     this.props.selectView(viewConstants.HOME, viewConstants.HOME_TITLE);
   }
@@ -17,14 +18,19 @@ class ViewController extends Component {
       case viewConstants.CREATE_TRANSFER:
         return (<TransferCreate />);
       case viewConstants.TRANSFERS_HISTORY:
-        return (<TransfersHistory />);
+        return (
+          <div>
+            <TranfersFilter />
+            <TransfersList />
+          </div>
+        );
       default:
-        return (<br/>);
+        return (<span></span>);
     }
   }
 }
 
-const ConnectedViewController = connect((state) => {
+const ConnectedViewContainer = connect((state) => {
   return {
     view: state.view
   }
@@ -34,6 +40,6 @@ const ConnectedViewController = connect((state) => {
       dispatch(selectView(view, title));
     }
   }
-})(ViewController);
+})(ViewContainer);
 
-export default ConnectedViewController;
+export default ConnectedViewContainer;

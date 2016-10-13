@@ -26,7 +26,7 @@ export class TextField extends Component {
       this.props.setFieldValidationMessage(this.props.name, 'Campo obligatorio');
     }
     if (!empty && this.props.validationFunction) {
-      let message = this.props.validationFunction(this);
+      let message = this.props.validationFunction(this.input.value);
       if (message) {
         this.props.setFieldValidationMessage(this.props.name, message);
         val = '';
