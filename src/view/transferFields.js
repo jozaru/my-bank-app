@@ -1,6 +1,6 @@
 import { validateDate, validateAmount } from './transferValidators';
 
-var transferFields = [
+const transferFields = [
   {
     id: 1,
     type: 'date',
@@ -30,5 +30,6 @@ var transferFields = [
     validationFunction: validateAmount
   }
 ];
+
 
 export default transferFields;

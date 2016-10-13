@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Form from '../components/Form';
 import TextField from '../components/TextField';
-import filterFields from './filterFields';
 import { connect } from 'react-redux';
 import { setFormMessage, fetchTransfers, transfersFinded, noTransfers } from '../action/actionCreator';
+import filterFields from './filterFields';
 import TransferClient from '../client/TransferClient';
 
 const formName = 'formFilter';
 
-class TransferFilter extends Component {
+export class TransfersFilter extends Component {
   constructor() {
     super();
     this.submitForm = this.submitForm.bind(this);
@@ -40,7 +40,7 @@ class TransferFilter extends Component {
           required={field.required}
           formName={field.formName}
         />
-      )
+      );
     });
     return (
       <div>
@@ -49,14 +49,13 @@ class TransferFilter extends Component {
           fields={fields}
           validateForm={this.validateForm}
           submitForm={this.submitForm}
-          resetAfterSubmit={false}
         />
       </div>
     );
   }
 }
 
-const ConnectedTransferFilter = connect((state) => {
+const ConnectedTransfersFilter = connect((state) => {
   return {
     formState: state[formName]
   }
@@ -78,6 +77,6 @@ const ConnectedTransferFilter = connect((state) => {
       }, 5000);
     }
   }
-})(TransferFilter);
+})(TransfersFilter);
 
-export default ConnectedTransferFilter;
+export default ConnectedTransfersFilter;
