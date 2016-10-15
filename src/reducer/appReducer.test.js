@@ -24,8 +24,8 @@ describe('appReducer', () => {
     const expectedState = {
       [formName]: {
         formData: {},
-        formMessage: '',
-        formValid: false
+        messageType: null,
+        formMessage: ''
       }
     };
     expect(appReducer({}, receivedAction)).toEqual(expectedState);

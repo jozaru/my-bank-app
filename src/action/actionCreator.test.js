@@ -42,13 +42,15 @@ describe('actionCreator', () => {
   describe('setFormMessage()', () => {
     it('should return the correct action type when setting form message', () => {
       const formName = 'someForm';
+      const messageType = 'error';
       const formMessage = 'Some message';
       const expectedAction = {
         type: actionTypes.SET_FORM_MESSAGE,
         formName,
+        messageType,
         formMessage
       };
-      expect(actionCreator.setFormMessage(formName, formMessage)).toEqual(expectedAction);
+      expect(actionCreator.setFormMessage(formName, messageType, formMessage)).toEqual(expectedAction);
     });
   });
 

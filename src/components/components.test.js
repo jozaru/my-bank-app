@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import Menu from './Menu';
 import { Header } from './Header';
 import { MenuItem } from './MenuItem';
-import { TextField } from './TextField';
+import { Field } from './Field';
 import { Form } from './Form';
 
 describe('components', () => {
@@ -21,13 +21,18 @@ describe('components', () => {
 
   describe('MenuItem', () => {
     it('Should render without crashing', () => {
-      shallow(<MenuItem />);
+      const props = {
+        viewName: 'SOME_VIEW',
+        viewTitle: 'Some title',
+        text: 'Some text'
+      };
+      shallow(<MenuItem {...props}/>);
     });
 
     it('should call selectView when clicked', () => {
       let selectView = jest.fn();
       const wrapper = shallow(<MenuItem selectView={selectView}/>);
-      wrapper.find('li').simulate('click');
+      wrapper.find('span').simulate('click');
       expect(selectView).toHaveBeenCalled();
     });
   });
@@ -38,9 +43,9 @@ describe('components', () => {
     });
   });
 
-  describe('TextField', () => {
+  describe('Field', () => {
     it('Should render without crashing', () => {
-      shallow(<TextField />);
+      shallow(<Field />);
     });
   });
 });
