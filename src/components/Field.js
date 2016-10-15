@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { setFormData, setFormMessage, setFieldValidationMessage } from '../action/actionCreator';
+import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-export class TextField extends Component {
+export class Field extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
@@ -26,7 +27,7 @@ export class TextField extends Component {
       this.props.setFieldValidationMessage(this.props.name, 'Campo obligatorio');
     }
     if (!empty && this.props.validationFunction) {
-      let message = this.props.validationFunction(this.input.value);
+      let message = this.props.validationFunction(val);
       if (message) {
         this.props.setFieldValidationMessage(this.props.name, message);
         val = '';
@@ -38,28 +39,34 @@ export class TextField extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <label>{this.props.label}</label>
-        </div>
-        <div>
-          <input
-            type={this.props.type}
-            name={this.props.name}
-            min={this.props.min}
-            onChange={this.handleChange}
-            ref={(ref) => {
-              this.input = ref;
-            }}
-          />
-        </div>
-        <span>{this.props.validationMessage}</span>
-      </div>
+      <FormGroup validationState={this.props.validationMessage ? 'error': null}>
+        <ControlLabel>{this.props.label}</ControlLabel>
+        <FormControl
+          type={this.props.type}
+          onChange={this.handleChange}
+          min={this.props.min}
+        />
+        <HelpBlock>{this.props.validationMessage}</HelpBlock>
+      </FormGroup>
     );
   }
 }
 
-const ConnectedTextField = connect((state, props) => {
+Field.propTypes = {
+  label: React.PropTypes.string.isRequired,
+  type: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired,
+  min: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+  validationMessage: React.PropTypes.string,
+  formName: React.PropTypes.string.isRequired,
+  required: React.PropTypes.bool,
+  setFieldValidationMessage: React.PropTypes.func.isRequired,
+  setFormData: React.PropTypes.func.isRequired,
+  setFormMessage: React.PropTypes.func.isRequired,
+  validationFunction: React.PropTypes.func
+}
+
+const ConnectedField = connect((state, props) => {
   return {
     [props.formName]: state[props.formName],
     validationMessage: state[props.name]
@@ -76,6 +83,6 @@ const ConnectedTextField = connect((state, props) => {
       dispatch(setFieldValidationMessage(fieldName, message));
     }
   }
-})(TextField);
+})(Field);
 
-export default ConnectedTextField;
+export default ConnectedField;

@@ -1,12 +1,13 @@
 {
-    "extends": "standard",
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "plugins": [
         "standard",
-        "promise"
+        "promise",
+        "react"
     ],
-    "rules": {
-      "semi": "off",
-      "space-before-function-paren": "off",
-      "no-undef": "off"
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "node": true
     }
 }

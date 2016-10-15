@@ -1,10 +1,11 @@
 import * as actionTypes from './actionTypes';
 
-export function selectView(view, title) {
+export function selectView(view, title, logo) {
   return {
     type: actionTypes.SELECT_VIEW,
     view,
-    title
+    title,
+    logo
   };
 }
 
@@ -23,10 +24,11 @@ export function setFormData(formName, formData) {
   };
 }
 
-export function setFormMessage(formName, formMessage) {
+export function setFormMessage(formName, messageType, formMessage) {
   return {
     type: actionTypes.SET_FORM_MESSAGE,
     formName,
+    messageType,
     formMessage
   };
 }

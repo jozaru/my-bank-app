@@ -1,28 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { selectView } from '../action/actionCreator';
+import { NavItem } from 'react-bootstrap';
 
-export class MenuItem extends Component {
+export class MenuItem extends React.Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    this.props.selectView(this.props.viewName, this.props.viewTitle);
+    this.props.selectView(this.props.viewName, this.props.viewTitle, this.props.viewLogo);
   }
 
   render() {
     return (
-      <li onClick={this.handleClick}>{this.props.text}</li>
+      <NavItem href="#" className={this.props.selectedView === this.props.viewName ? 'active': ''}>
+        <span onClick={this.handleClick}>{this.props.text}</span>
+      </NavItem>
     );
   }
 }
 
-const ConnectedMenuItem = connect((state) => { return state }, (dispatch) => {
+MenuItem.propTypes = {
+  viewName: React.PropTypes.string.isRequired,
+  viewTitle: React.PropTypes.string.isRequired,
+  text: React.PropTypes.string.isRequired,
+  selectView: React.PropTypes.func,
+  selectedView: React.PropTypes.string,
+  viewLogo: React.PropTypes.string
+}
+
+const ConnectedMenuItem = connect((state) => {
   return {
-    selectView: (view, title) => {
-      dispatch(selectView(view, title));
+    selectedView: state.view
+  };
+}, (dispatch) => {
+  return {
+    selectView: (view, title, logo) => {
+      dispatch(selectView(view, title, logo));
     }
   }
 })(MenuItem);

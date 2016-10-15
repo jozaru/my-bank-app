@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Form from '../components/Form';
-import TextField from '../components/TextField';
+import Field from '../components/Field';
 import { HOME, HOME_TITLE } from '../view/viewConstants';
 import { connect } from 'react-redux';
 import { selectView, setFormMessage } from '../action/actionCreator';
@@ -9,7 +9,7 @@ import TransferClient from '../client/TransferClient';
 
 const formName = 'formTransfer';
 
-export class TransferCreate extends Component {
+export class TransferCreate extends React.Component {
   constructor() {
     super();
     this.validateForm = this.validateForm.bind(this);
@@ -19,10 +19,10 @@ export class TransferCreate extends Component {
 
   submitForm(form) {
     const formData = this.props.formState.formData;
-    this.props.setFormMessage(formName, 'Realizando transferencia...');
+    this.props.setFormMessage(formName, 'success', 'Realizando transferencia...');
     setTimeout(() => {
       TransferClient.saveTransfer(formData);
-      this.props.setFormMessage(formName, 'Transferencia realizada con éxito');
+      this.props.setFormMessage(formName, 'success', 'Transferencia realizada con éxito');
       form.reset();
     }, 5000);
   }
@@ -31,7 +31,7 @@ export class TransferCreate extends Component {
     const formData = this.props.formState.formData;
     const formValid = Object.keys(formData).map((key) => formData[key]).filter((value) => value.length !== 0).length === 3;
     if (!formValid) {
-      this.props.setFormMessage(formName, 'Revisa los datos del formulario');
+      this.props.setFormMessage(formName, 'error', 'Revisa los datos del formulario');
     }
     return formValid;
   }
@@ -43,7 +43,7 @@ export class TransferCreate extends Component {
   render() {
     const fields = transferFields.map((field) => {
       return (
-        <TextField
+        <Field
           key={field.id}
           type={field.type}
           name={field.name}
@@ -56,17 +56,21 @@ export class TransferCreate extends Component {
       );
     });
     return (
-      <div>
-        <Form
-          formName={formName}
-          fields={fields}
-          validateForm={this.validateForm}
-          submitForm={this.submitForm}
-          cancelOperation={this.cancelTransfer}
-        />
-      </div>
+      <Form
+        formName={formName}
+        fields={fields}
+        validateForm={this.validateForm}
+        submitForm={this.submitForm}
+        cancelOperation={this.cancelTransfer}
+      />
     );
   }
+}
+
+TransferCreate.propTypes = {
+  formState: React.PropTypes.object,
+  setFormMessage: React.PropTypes.func.isRequired,
+  selectView: React.PropTypes.func.isRequired
 }
 
 const ConnectedTransferCreate = connect((state) => {
@@ -78,8 +82,8 @@ const ConnectedTransferCreate = connect((state) => {
     selectView: (view, title) => {
       dispatch(selectView(view, title));
     },
-    setFormMessage: (formName, formMessage) => {
-      dispatch(setFormMessage(formName, formMessage));
+    setFormMessage: (formName, messageType, formMessage) => {
+      dispatch(setFormMessage(formName, messageType, formMessage));
     }
   }
 })(TransferCreate);

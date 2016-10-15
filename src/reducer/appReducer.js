@@ -10,19 +10,20 @@ function appReducer(state = getInitialState(), action) {
     case actionTypes.SELECT_VIEW:
       newState.view = action.view;
       newState.title = action.title;
+      newState.logo = action.logo;
       break;
     case actionTypes.INIT_FORM:
       newState[action.formName] = {
         formData: {},
-        formMessage: '',
-        formValid: false
+        messageType: null,
+        formMessage: ''
       };
       break;
     case actionTypes.SET_FORM_DATA:
-      newState[action.formName] = Object.assign({}, newState[action.formName], { formData: action.formData }); ;
+      newState[action.formName] = Object.assign({}, newState[action.formName], { formData: action.formData });
       break;
     case actionTypes.SET_FORM_MESSAGE:
-      newState[action.formName] = Object.assign({}, newState[action.formName], { formMessage: action.formMessage });
+      newState[action.formName] = Object.assign({}, newState[action.formName], { messageType: action.messageType, formMessage: action.formMessage });
       break;
     case actionTypes.INIT_TRANSFERS:
       newState.transfers = null;
