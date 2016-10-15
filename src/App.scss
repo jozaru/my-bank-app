@@ -1,0 +1,29 @@
+.header {
+  background-color: #dc2625;
+  height: auto;
+  color: white;
+  text-align: center;
+  margin-top: -20px;
+  &__title {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  &__logo {
+    height: 80px;
+    margin-top: 5px;
+  }
+}
+
+.content {
+  margin-top: 10px;
+  color: #777;
+  background-color: #fff;
+  &__title {
+    font-size:20px;
+    text-align: center;
+  }
+}
+
+.button {
+  margin-right: 5px;
+}

@@ -1,17 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './App.scss';
 import Menu from './components/Menu';
 import Header from './components/Header';
 import ViewContainer from './view/ViewContainer';
+import 'bootstrap/dist/css/bootstrap.css';
+import { Grid } from 'react-bootstrap';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <Menu />
-        <Header logo={logo} />
-        <ViewContainer />
+        <Grid>
+          <Header />
+          <ViewContainer />
+        </Grid>
       </div>
     );
   }

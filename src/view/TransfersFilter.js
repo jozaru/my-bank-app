@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Form from '../components/Form';
-import TextField from '../components/TextField';
+import Field from '../components/Field';
 import { connect } from 'react-redux';
 import { setFormMessage, fetchTransfers, transfersFinded, noTransfers } from '../action/actionCreator';
 import filterFields from './filterFields';
@@ -8,7 +8,7 @@ import TransferClient from '../client/TransferClient';
 
 const formName = 'formFilter';
 
-export class TransfersFilter extends Component {
+export class TransfersFilter extends React.Component {
   constructor() {
     super();
     this.submitForm = this.submitForm.bind(this);
@@ -24,7 +24,7 @@ export class TransfersFilter extends Component {
     const formData = this.props.formState.formData;
     const formValid = Object.keys(formData).map((key) => formData[key]).filter((value) => value.length !== 0).length >= 1;
     if (!formValid) {
-      this.props.setFormMessage(formName, 'Debes ingresar al menos una fecha');
+      this.props.setFormMessage(formName, 'error', 'Debes ingresar al menos una fecha');
     }
     return formValid;
   }
@@ -32,7 +32,7 @@ export class TransfersFilter extends Component {
   render() {
     const fields = filterFields.map((field) => {
       return (
-        <TextField
+        <Field
           key={field.id}
           type={field.type}
           name={field.name}
@@ -43,16 +43,21 @@ export class TransfersFilter extends Component {
       );
     });
     return (
-      <div>
-        <Form
-          formName={formName}
-          fields={fields}
-          validateForm={this.validateForm}
-          submitForm={this.submitForm}
-        />
-      </div>
+      <Form
+        formName={formName}
+        fields={fields}
+        validateForm={this.validateForm}
+        submitForm={this.submitForm}
+        okText='Buscar'
+      />
     );
   }
+}
+
+TransfersFilter.propTypes = {
+  formState: React.PropTypes.object,
+  fetchTransfers: React.PropTypes.func.isRequired,
+  setFormMessage: React.PropTypes.func.isRequired
 }
 
 const ConnectedTransfersFilter = connect((state) => {
@@ -61,8 +66,8 @@ const ConnectedTransfersFilter = connect((state) => {
   }
 }, (dispatch) => {
   return {
-    setFormMessage: (formName, formMessage) => {
-      dispatch(setFormMessage(formName, formMessage));
+    setFormMessage: (formName, messageType, formMessage) => {
+      dispatch(setFormMessage(formName, messageType, formMessage));
     },
     fetchTransfers: (formData) => {
       dispatch(fetchTransfers());

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MenuItem from './MenuItem';
 import items from './menuItems';
+import { Navbar, Nav } from 'react-bootstrap';
 
-class Menu extends Component {
+class Menu extends React.Component {
   render() {
     const menuItems = items.map((item) => {
       return (
@@ -11,11 +12,24 @@ class Menu extends Component {
           text={item.text}
           viewName={item.viewName}
           viewTitle={item.viewTitle}
+          viewLogo={item.viewLogo}
         />
       );
     });
     return (
-      <ul>{menuItems}</ul>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <span>Bank app</span>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            {menuItems}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }

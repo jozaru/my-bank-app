@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { initForm } from '../action/actionCreator';
+import { Row, Col, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 
-export class Form extends Component {
+export class Form extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,35 +15,53 @@ export class Form extends Component {
     this.props.initForm(this.props.formName);
   }
 
-  handleSubmit(ev) {
-    ev.preventDefault();
+  handleSubmit() {
     const formValid = this.props.validateForm();
     if (formValid) {
       this.props.submitForm(this.form);
     }
   }
 
-  handleCancel(ev) {
-    ev.preventDefault();
+  handleCancel() {
     this.form.reset();
     this.props.cancelOperation();
   }
 
   render() {
     return (
-      <form method='POST' noValidate
-        onSubmit={this.handleSubmit}
-        name={this.props.formName}
-        ref={(ref) => {
-          this.form = ref
-        }}>
-        <span>{this.props.formState ? this.props.formState.formMessage : ''}</span>
-          {this.props.fields}
-        <button>Aceptar</button>
-        <button onClick={this.handleCancel}>Cancelar</button>
-      </form>
+      <Row>
+        <Col md={12}>
+          <Row>
+            <Col md={12}>
+              <form noValidate
+                ref={(ref) => {
+                  this.form = ref
+                }}>
+                <FormGroup validationState={this.props.formState ? this.props.formState.messageType : null}>
+                  <HelpBlock>{this.props.formState ? this.props.formState.formMessage : ''}</HelpBlock>
+                </FormGroup>
+                {this.props.fields}
+                <Button className="button" onClick={this.handleSubmit}>{this.props.okText ? this.props.okText: 'Aceptar'}</Button>
+                {this.props.cancelOperation ? <Button onClick={this.handleCancel}>{this.props.cancelText ? this.props.cancelText: 'Cancelar'}</Button> : <span></span>}
+              </form>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     );
   }
+}
+
+Form.propTypes = {
+  formName: React.PropTypes.string.isRequired,
+  fields: React.PropTypes.array.isRequired,
+  formState: React.PropTypes.object,
+  initForm: React.PropTypes.func.isRequired,
+  validateForm: React.PropTypes.func.isRequired,
+  submitForm: React.PropTypes.func.isRequired,
+  cancelOperation: React.PropTypes.func,
+  okText: React.PropTypes.string,
+  cancelText: React.PropTypes.string
 }
 
 const connectedForm = connect((state, props) => {

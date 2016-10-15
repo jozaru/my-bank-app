@@ -31,5 +31,4 @@ const transferFields = [
   }
 ];
 
-
 export default transferFields;
