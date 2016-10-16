@@ -19,7 +19,7 @@ export class Field extends React.Component {
     if (this.props.required && (!val || val.lenght === 0)) {
       empty = true;
     }
-    this.props.setFormMessage(this.props.formName, '');
+    this.props.setFormMessage(this.props.formName);
     this.props.setFieldValidationMessage(this.props.name, '');
     if (empty) {
       this.props.setFieldValidationMessage(this.props.name, 'Campo obligatorio');

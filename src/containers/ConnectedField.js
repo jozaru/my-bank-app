@@ -12,8 +12,8 @@ const ConnectedField = connect((state, props) => {
     setFormData: (formName, formData) => {
       dispatch(setFormData(formName, formData));
     },
-    setFormMessage: (message) => {
-      dispatch(setFormMessage(message));
+    setFormMessage: (formName) => {
+      dispatch(setFormMessage(formName));
     },
     setFieldValidationMessage: (fieldName, message) => {
       dispatch(setFieldValidationMessage(fieldName, message));
