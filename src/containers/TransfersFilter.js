@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from '../components/Form';
-import Field from '../components/Field';
+import Form from '../containers/ConnectedForm';
+import Field from '../containers/ConnectedField';
 import { connect } from 'react-redux';
 import { setFormMessage, fetchTransfers, transfersFinded, noTransfers } from '../actions/actionCreator';
 import filterFields from './filterFields';

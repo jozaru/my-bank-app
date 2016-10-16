@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from '../containers/ConnectedForm';
 import Field from '../containers/ConnectedField';
-import { HOME, HOME_TITLE } from '../constants/viewConstants';
+import { HOME, HOME_TITLE, HOME_LOGO } from '../constants/viewConstants';
 import { connect } from 'react-redux';
 import { selectView, setFormMessage } from '../actions/actionCreator';
 import transferFields from './transferFields';
@@ -37,7 +37,7 @@ export class TransferCreate extends React.Component {
   }
 
   cancelTransfer() {
-    this.props.selectView(HOME, HOME_TITLE);
+    this.props.selectView(HOME, HOME_TITLE, HOME_LOGO);
   }
 
   render() {
@@ -79,8 +79,8 @@ const ConnectedTransferCreate = connect((state) => {
   }
 }, (dispatch) => {
   return {
-    selectView: (view, title) => {
-      dispatch(selectView(view, title));
+    selectView: (view, title, logo) => {
+      dispatch(selectView(view, title, logo));
     },
     setFormMessage: (formName, messageType, formMessage) => {
       dispatch(setFormMessage(formName, messageType, formMessage));

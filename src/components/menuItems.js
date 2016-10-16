@@ -1,7 +1,4 @@
 import * as views from '../constants/viewConstants';
-import wallet from '../wallet.svg';
-import hand from '../hand.svg';
-import search from '../search.svg';
 
 const items = [
   {
@@ -9,21 +6,21 @@ const items = [
     text: 'Inicio',
     viewName: views.HOME,
     viewTitle: views.HOME_TITLE,
-    viewLogo: wallet
+    viewLogo: views.HOME_LOGO
   },
   {
     id: 2,
     text: 'Realizar transferencia',
     viewName: views.CREATE_TRANSFER,
     viewTitle: views.CREATE_TRANSFER_TITLE,
-    viewLogo: hand
+    viewLogo: views.CREATE_TRANSFER_LOGO
   },
   {
     id: 3,
     text: 'Ver transferencias',
     viewName: views.TRANSFERS_HISTORY,
     viewTitle: views.TRANSFERS_HISTORY_TITLE,
-    viewLogo: search
+    viewLogo: views.TRANSFERS_HISTORY_LOGO
   }
 ]
 

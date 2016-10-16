@@ -6,11 +6,10 @@ import TranfersFilter from './TransfersFilter';
 import TransfersList from './TransfersList';
 import { selectView } from '../actions/actionCreator';
 import { Row, Col } from 'react-bootstrap';
-import wallet from '../wallet.svg';
 
 export class ViewContainer extends React.Component {
   componentDidMount() {
-    this.props.selectView(viewConstants.HOME, viewConstants.HOME_TITLE, wallet);
+    this.props.selectView(viewConstants.HOME, viewConstants.HOME_TITLE, viewConstants.HOME_LOGO);
   }
 
   render() {
