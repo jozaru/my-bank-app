@@ -1,5 +1,5 @@
 import appReducer from './appReducer';
-import * as actionTypes from '../action/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 describe('appReducer', () => {
   it('Should return an object with the new view and title when receiving a selected view action', () => {
@@ -24,8 +24,8 @@ describe('appReducer', () => {
     const expectedState = {
       [formName]: {
         formData: {},
-        formMessage: '',
-        formValid: false
+        messageType: null,
+        formMessage: ''
       }
     };
     expect(appReducer({}, receivedAction)).toEqual(expectedState);

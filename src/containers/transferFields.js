@@ -1,4 +1,4 @@
-import { validateDate, validateAmount } from './transferValidators';
+import { validateDate, validateAmount } from '../validators/transferValidators';
 
 const transferFields = [
   {
@@ -8,7 +8,6 @@ const transferFields = [
     label: 'Fecha',
     min: new Date().toISOString().slice(0, 10),
     required: true,
-    formName: 'formTransfer',
     validationFunction: validateDate
   },
   {
@@ -16,8 +15,7 @@ const transferFields = [
     type: 'text',
     name: 'destinatario',
     label: 'Destinatario',
-    required: true,
-    formName: 'formTransfer'
+    required: true
   },
   {
     id: 3,
@@ -26,7 +24,6 @@ const transferFields = [
     label: 'Monto',
     min: 1,
     required: true,
-    formName: 'formTransfer',
     validationFunction: validateAmount
   }
 ];

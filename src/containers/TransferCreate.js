@@ -1,9 +1,8 @@
 import React from 'react';
-import Form from '../components/Form';
-import Field from '../components/Field';
-import { HOME, HOME_TITLE } from '../view/viewConstants';
+import Form from '../containers/ConnectedForm';
+import { HOME, HOME_TITLE, HOME_LOGO } from '../constants/viewConstants';
 import { connect } from 'react-redux';
-import { selectView, setFormMessage } from '../action/actionCreator';
+import { selectView, setFormMessage } from '../actions/actionCreator';
 import transferFields from './transferFields';
 import TransferClient from '../client/TransferClient';
 
@@ -37,28 +36,14 @@ export class TransferCreate extends React.Component {
   }
 
   cancelTransfer() {
-    this.props.selectView(HOME, HOME_TITLE);
+    this.props.selectView(HOME, HOME_TITLE, HOME_LOGO);
   }
 
   render() {
-    const fields = transferFields.map((field) => {
-      return (
-        <Field
-          key={field.id}
-          type={field.type}
-          name={field.name}
-          label={field.label}
-          min={field.min}
-          required={field.required}
-          formName={field.formName}
-          validationFunction={field.validationFunction}
-        />
-      );
-    });
     return (
       <Form
         formName={formName}
-        fields={fields}
+        fields={transferFields}
         validateForm={this.validateForm}
         submitForm={this.submitForm}
         cancelOperation={this.cancelTransfer}
@@ -79,8 +64,8 @@ const ConnectedTransferCreate = connect((state) => {
   }
 }, (dispatch) => {
   return {
-    selectView: (view, title) => {
-      dispatch(selectView(view, title));
+    selectView: (view, title, logo) => {
+      dispatch(selectView(view, title, logo));
     },
     setFormMessage: (formName, messageType, formMessage) => {
       dispatch(setFormMessage(formName, messageType, formMessage));

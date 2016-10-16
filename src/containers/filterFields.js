@@ -3,15 +3,13 @@ const filterFields = [
     id: 1,
     type: 'date',
     name: 'fecha_desde',
-    label: 'Desde',
-    formName: 'formFilter'
+    label: 'Desde'
   },
   {
     id: 2,
     type: 'date',
     name: 'fecha_hasta',
-    label: 'Hasta',
-    formName: 'formFilter'
+    label: 'Hasta'
   }
 ];
 

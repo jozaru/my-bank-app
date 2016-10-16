@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuItem from './MenuItem';
+import MenuItem from '../containers/ConnectedMenuItem';
 import items from './menuItems';
 import { Navbar, Nav } from 'react-bootstrap';
 

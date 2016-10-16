@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as viewConstants from './viewConstants';
+import * as viewConstants from '../constants/viewConstants';
 import TransferCreate from './TransferCreate';
 import TranfersFilter from './TransfersFilter';
 import TransfersList from './TransfersList';
-import { selectView } from '../action/actionCreator';
+import { selectView } from '../actions/actionCreator';
 import { Row, Col } from 'react-bootstrap';
-import wallet from '../wallet.svg';
 
 export class ViewContainer extends React.Component {
   componentDidMount() {
-    this.props.selectView(viewConstants.HOME, viewConstants.HOME_TITLE, wallet);
+    this.props.selectView(viewConstants.HOME, viewConstants.HOME_TITLE, viewConstants.HOME_LOGO);
   }
 
   render() {
@@ -19,7 +18,7 @@ export class ViewContainer extends React.Component {
         return (
           <Row className="content">
             <Col md={12} className="content__title">
-              <span>Por favor selecciona una opcion del menú</span>
+              <span>Para empezar, selecciona una opcion del menú</span>
             </Col>
           </Row>
         );

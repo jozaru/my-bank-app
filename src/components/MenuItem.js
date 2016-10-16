@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { selectView } from '../action/actionCreator';
 import { NavItem } from 'react-bootstrap';
 
 export class MenuItem extends React.Component {
@@ -31,16 +29,4 @@ MenuItem.propTypes = {
   viewLogo: React.PropTypes.string
 }
 
-const ConnectedMenuItem = connect((state) => {
-  return {
-    selectedView: state.view
-  };
-}, (dispatch) => {
-  return {
-    selectView: (view, title, logo) => {
-      dispatch(selectView(view, title, logo));
-    }
-  }
-})(MenuItem);
-
-export default ConnectedMenuItem;
+export default MenuItem;
