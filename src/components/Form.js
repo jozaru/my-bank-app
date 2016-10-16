@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { initForm } from '../action/actionCreator';
 import { Row, Col, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 
 export class Form extends React.Component {
@@ -64,16 +62,4 @@ Form.propTypes = {
   cancelText: React.PropTypes.string
 }
 
-const connectedForm = connect((state, props) => {
-  return {
-    formState: state[props.formName]
-  }
-}, (dispatch) => {
-  return {
-    initForm: (formName) => {
-      dispatch(initForm(formName));
-    }
-  }
-})(Form);
-
-export default connectedForm;
+export default Form;

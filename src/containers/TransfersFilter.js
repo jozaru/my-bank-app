@@ -2,7 +2,7 @@ import React from 'react';
 import Form from '../components/Form';
 import Field from '../components/Field';
 import { connect } from 'react-redux';
-import { setFormMessage, fetchTransfers, transfersFinded, noTransfers } from '../action/actionCreator';
+import { setFormMessage, fetchTransfers, transfersFinded, noTransfers } from '../actions/actionCreator';
 import filterFields from './filterFields';
 import TransferClient from '../client/TransferClient';
 

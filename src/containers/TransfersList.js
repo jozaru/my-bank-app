@@ -1,7 +1,7 @@
 import React from 'react';
 import Transfer from './Transfer';
 import { connect } from 'react-redux';
-import { initTransfers } from '../action/actionCreator';
+import { initTransfers } from '../actions/actionCreator';
 import { Row, Col, Table } from 'react-bootstrap';
 
 export class TransfersList extends React.Component {

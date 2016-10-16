@@ -1,9 +1,9 @@
 import React from 'react';
-import Form from '../components/Form';
-import Field from '../components/Field';
-import { HOME, HOME_TITLE } from '../view/viewConstants';
+import Form from '../containers/ConnectedForm';
+import Field from '../containers/ConnectedField';
+import { HOME, HOME_TITLE } from '../constants/viewConstants';
 import { connect } from 'react-redux';
-import { selectView, setFormMessage } from '../action/actionCreator';
+import { selectView, setFormMessage } from '../actions/actionCreator';
 import transferFields from './transferFields';
 import TransferClient from '../client/TransferClient';
 

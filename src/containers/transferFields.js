@@ -1,4 +1,4 @@
-import { validateDate, validateAmount } from './transferValidators';
+import { validateDate, validateAmount } from '../validators/transferValidators';
 
 const transferFields = [
   {

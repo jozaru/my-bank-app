@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Menu from './Menu';
-import { Header } from './Header';
-import { MenuItem } from './MenuItem';
-import { Field } from './Field';
-import { Form } from './Form';
+import Header from './Header';
+import MenuItem from './MenuItem';
+import Field from './Field';
+import Form from './Form';
 
 describe('components', () => {
   describe('Header', () => {

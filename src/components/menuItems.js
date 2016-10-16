@@ -1,4 +1,4 @@
-import * as views from '../view/viewConstants';
+import * as views from '../constants/viewConstants';
 import wallet from '../wallet.svg';
 import hand from '../hand.svg';
 import search from '../search.svg';

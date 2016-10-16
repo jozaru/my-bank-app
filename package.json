@@ -84,7 +84,7 @@
       "<rootDir>/config/polyfills.js"
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>/(build|docs|node_modules|config)/"
+      "<rootDir>/(build|docs|node_modules|config|src/containers)/"
     ],
     "testEnvironment": "node",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$"

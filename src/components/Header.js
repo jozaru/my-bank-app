@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
-export class Header extends React.Component {
+class Header extends React.Component {
   render() {
     return (
       <Row className="header">
@@ -28,11 +27,4 @@ Header.propTypes  = {
   title: React.PropTypes.string
 }
 
-const ConnectedHeader = connect((state) => {
-  return {
-    title: state.title,
-    logo: state.logo
-  }
-})(Header);
-
-export default ConnectedHeader;
+export default Header;

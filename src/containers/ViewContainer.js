@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as viewConstants from './viewConstants';
+import * as viewConstants from '../constants/viewConstants';
 import TransferCreate from './TransferCreate';
 import TranfersFilter from './TransfersFilter';
 import TransfersList from './TransfersList';
-import { selectView } from '../action/actionCreator';
+import { selectView } from '../actions/actionCreator';
 import { Row, Col } from 'react-bootstrap';
 import wallet from '../wallet.svg';
 
