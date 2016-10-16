@@ -1,6 +1,5 @@
 import React from 'react';
 import Form from '../containers/ConnectedForm';
-import Field from '../containers/ConnectedField';
 import { HOME, HOME_TITLE, HOME_LOGO } from '../constants/viewConstants';
 import { connect } from 'react-redux';
 import { selectView, setFormMessage } from '../actions/actionCreator';
@@ -41,24 +40,10 @@ export class TransferCreate extends React.Component {
   }
 
   render() {
-    const fields = transferFields.map((field) => {
-      return (
-        <Field
-          key={field.id}
-          type={field.type}
-          name={field.name}
-          label={field.label}
-          min={field.min}
-          required={field.required}
-          formName={field.formName}
-          validationFunction={field.validationFunction}
-        />
-      );
-    });
     return (
       <Form
         formName={formName}
-        fields={fields}
+        fields={transferFields}
         validateForm={this.validateForm}
         submitForm={this.submitForm}
         cancelOperation={this.cancelTransfer}

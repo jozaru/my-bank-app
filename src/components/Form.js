@@ -1,4 +1,5 @@
 import React from 'react';
+import Field from '../containers/ConnectedField';
 import { Row, Col, Button, FormGroup, HelpBlock } from 'react-bootstrap';
 
 export class Form extends React.Component {
@@ -26,6 +27,20 @@ export class Form extends React.Component {
   }
 
   render() {
+    const fields = this.props.fields.map((field) => {
+      return (
+        <Field
+          key={field.id}
+          type={field.type}
+          name={field.name}
+          label={field.label}
+          min={field.min}
+          required={field.required}
+          formName={this.props.formName}
+          validationFunction={field.validationFunction}
+        />
+      );
+    });
     return (
       <Row>
         <Col md={12}>
@@ -38,7 +53,7 @@ export class Form extends React.Component {
                 <FormGroup validationState={this.props.formState ? this.props.formState.messageType : null}>
                   <HelpBlock>{this.props.formState ? this.props.formState.formMessage : ''}</HelpBlock>
                 </FormGroup>
-                {this.props.fields}
+                {fields}
                 <Button className="button" onClick={this.handleSubmit}>{this.props.okText ? this.props.okText: 'Aceptar'}</Button>
                 {this.props.cancelOperation ? <Button onClick={this.handleCancel}>{this.props.cancelText ? this.props.cancelText: 'Cancelar'}</Button> : <span></span>}
               </form>

@@ -1,6 +1,5 @@
 import React from 'react';
 import Form from '../containers/ConnectedForm';
-import Field from '../containers/ConnectedField';
 import { connect } from 'react-redux';
 import { setFormMessage, fetchTransfers, transfersFinded, noTransfers } from '../actions/actionCreator';
 import filterFields from './filterFields';
@@ -30,22 +29,10 @@ export class TransfersFilter extends React.Component {
   }
 
   render() {
-    const fields = filterFields.map((field) => {
-      return (
-        <Field
-          key={field.id}
-          type={field.type}
-          name={field.name}
-          label={field.label}
-          required={field.required}
-          formName={field.formName}
-        />
-      );
-    });
     return (
       <Form
         formName={formName}
-        fields={fields}
+        fields={filterFields}
         validateForm={this.validateForm}
         submitForm={this.submitForm}
         okText='Buscar'

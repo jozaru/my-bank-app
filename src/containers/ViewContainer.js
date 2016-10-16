@@ -18,7 +18,7 @@ export class ViewContainer extends React.Component {
         return (
           <Row className="content">
             <Col md={12} className="content__title">
-              <span>Por favor selecciona una opcion del menú</span>
+              <span>Para empezar, selecciona una opcion del menú</span>
             </Col>
           </Row>
         );
