@@ -1,5 +1,5 @@
 import React from 'react';
-import Transfer from './Transfer';
+import Transfer from '../components/Transfer';
 import { connect } from 'react-redux';
 import { initTransfers } from '../actions/actionCreator';
 import { Row, Col, Table } from 'react-bootstrap';
