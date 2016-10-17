@@ -15,6 +15,10 @@ Below you will find some information on how to perform components tasks.
 
 In the project directory, you can run:
 
+### `npm install`
+
+Install all project dependencies (this must be executed before any other command)
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
