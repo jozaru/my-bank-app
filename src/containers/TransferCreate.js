@@ -18,12 +18,7 @@ export class TransferCreate extends React.Component {
 
   submitForm(form) {
     const formData = this.props.formState.formData;
-    this.props.setFormMessage(formName, 'success', 'Realizando transferencia...');
-    setTimeout(() => {
-      TransferClient.saveTransfer(formData);
-      this.props.setFormMessage(formName, 'success', 'Transferencia realizada con éxito');
-      form.reset();
-    }, 5000);
+    this.props.saveTransfer(formData, form);
   }
 
   validateForm() {
@@ -55,7 +50,8 @@ export class TransferCreate extends React.Component {
 TransferCreate.propTypes = {
   formState: React.PropTypes.object,
   setFormMessage: React.PropTypes.func.isRequired,
-  selectView: React.PropTypes.func.isRequired
+  selectView: React.PropTypes.func.isRequired,
+  saveTransfer: React.PropTypes.func.isRequired
 }
 
 const ConnectedTransferCreate = connect((state) => {
@@ -66,6 +62,16 @@ const ConnectedTransferCreate = connect((state) => {
   return {
     selectView: (view, title, logo) => {
       dispatch(selectView(view, title, logo));
+    },
+    saveTransfer: (formData, form) => {
+      dispatch(setFormMessage(formName, 'success', 'Realizando transferencia...'));
+      TransferClient.saveTransfer(formData)
+      .then((reponse) => {
+        if('OK' === reponse) {
+          dispatch(setFormMessage(formName, 'success', 'Transferencia realizada con éxito'));
+          form.reset();
+        }
+      });
     },
     setFormMessage: (formName, messageType, formMessage) => {
       dispatch(setFormMessage(formName, messageType, formMessage));

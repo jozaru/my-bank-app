@@ -59,14 +59,13 @@ const ConnectedTransfersFilter = connect((state) => {
     fetchTransfers: (formData) => {
       dispatch(fetchTransfers());
 
-      setTimeout(() => {
-        let transfers = TransferClient.getTransfers(formData);
-        if (transfers && transfers.length > 0) {
+      TransferClient.getTransfers(formData)
+      .then((transfers) => {
           dispatch(transfersFinded(transfers));
-        } else {
-          dispatch(noTransfers());
-        }
-      }, 5000);
+      })
+      .catch(() => {
+        dispatch(noTransfers());
+      });
     }
   }
 })(TransfersFilter);
