@@ -66,8 +66,8 @@ const ConnectedTransferCreate = connect((state) => {
     saveTransfer: (formData, form) => {
       dispatch(setFormMessage(formName, 'success', 'Realizando transferencia...'));
       TransferClient.saveTransfer(formData)
-      .then((reponse) => {
-        if('OK' === reponse) {
+      .then((response) => {
+        if('OK' === response) {
           dispatch(setFormMessage(formName, 'success', 'Transferencia realizada con éxito'));
           form.reset();
         }
