@@ -27,8 +27,12 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       };
-      TransferClient.saveTransfer(transfer);
-      expect(localStorage.getItem(TRANSFERS_STORAGE_KEY).includes(JSON.stringify(transfer))).toBe(true);
+      return TransferClient.saveTransfer(transfer)
+      .then((response) => {
+        if('OK' === response) {
+          expect(localStorage.getItem(TRANSFERS_STORAGE_KEY).includes(JSON.stringify(transfer))).toBe(true);
+        }
+      });
     });
 
     it('Should add transfer to localStorage when saveTransfer is calling and there are transfers added', () => {
@@ -43,9 +47,13 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      TransferClient.saveTransfer(nextTransfer);
-      expect(localStorage.getItem(TRANSFERS_STORAGE_KEY).includes(JSON.stringify(nextTransfer))).toBe(true);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.saveTransfer(nextTransfer))
+      .then((response) => {
+        if('OK' === response) {
+          expect(localStorage.getItem(TRANSFERS_STORAGE_KEY).includes(JSON.stringify(nextTransfer))).toBe(true);
+        }
+      });
     });
   });
 
@@ -56,8 +64,10 @@ describe('TransferClient', () => {
         fecha_desde: '2016-10-11',
         fecha_hasta: ''
       };
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toEqual(0);
+      return TransferClient.getTransfers(filter)
+      .catch((response) => {
+        expect(response).toEqual('NO_TRANSFERS');
+      });
     });
 
     it('Should return transfers when a transfer is saved', () => {
@@ -71,9 +81,11 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBeGreaterThan(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .then((transfers) => {
+          expect(transfers.length).toBeGreaterThan(0);
+      });
     });
 
     it('Should return empty transfers when saved transfer date is lower than since date filter', () => {
@@ -87,9 +99,11 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBe(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .catch((response) => {
+        expect(response).toEqual('NO_TRANSFERS');
+      });
     });
 
     it('Should return empty transfers when saved transfer date is greater than until date filter', () => {
@@ -103,9 +117,11 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBe(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .catch((response) => {
+        expect(response).toEqual('NO_TRANSFERS');
+      });
     });
 
     it('Should return transfers when a transfer date is greater or equal than since date filter', () => {
@@ -119,9 +135,11 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBeGreaterThan(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .then((transfers) => {
+        expect(transfers.length).toBeGreaterThan(0);
+      });
     });
 
     it('Should return transfers when a transfer date is lower or equal than until date filter', () => {
@@ -135,9 +153,11 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBeGreaterThan(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .then((transfers) => {
+        expect(transfers.length).toBeGreaterThan(0);
+      });
     });
 
     it('Should return empty transfers when saved transfer date is lowere than since date filter or greater than until date filter', () => {
@@ -151,9 +171,11 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBe(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .catch((response) => {
+        expect(response).toEqual('NO_TRANSFERS');
+      });
     });
 
     it('Should return transfers when a transfer date is greater or equal than since date filter or lower or equal than until date filter', () => {
@@ -167,9 +189,11 @@ describe('TransferClient', () => {
         destinatario: 'Some destination',
         monto: 0
       }
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBeGreaterThan(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .then((transfers) => {
+          expect(transfers.length).toBeGreaterThan(0);
+      });
     });
 
     it('Should return empty transfers when no filter dates are sended', () => {
@@ -180,9 +204,11 @@ describe('TransferClient', () => {
         monto: 0
       };
       const filter = {};
-      TransferClient.saveTransfer(transfer);
-      const transfers = TransferClient.getTransfers(filter);
-      expect(transfers.length).toBe(0);
+      return TransferClient.saveTransfer(transfer)
+      .then(TransferClient.getTransfers(filter))
+      .catch((response) => {
+        expect(response).toEqual('NO_TRANSFERS');
+      });
     });
   });
 });

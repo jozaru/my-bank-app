@@ -12,7 +12,7 @@ class TransferClient {
         transfers.push(transfer);
         localStorage.setItem(TRANSFERS_STORAGE_KEY, JSON.stringify(transfers));
         resolve('OK');
-      }, 5000);
+      }, 2000);
     });
   }
 
@@ -52,7 +52,7 @@ class TransferClient {
         } else {
           reject('NO_TRANSFERS');
         }
-      }, 5000);
+      }, 2000);
     });
   }
 }

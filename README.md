@@ -10,7 +10,6 @@ Below you will find some information on how to perform components tasks.
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
-  - [npm run eject](#npm-run-eject)
 
 ## Available Scripts
 
